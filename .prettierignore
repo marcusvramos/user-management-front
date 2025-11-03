@@ -1,0 +1,9 @@
+node_modules
+dist
+coverage
+storybook-static
+.husky
+.vscode
+pnpm-lock.yaml
+package-lock.json
+*.log
