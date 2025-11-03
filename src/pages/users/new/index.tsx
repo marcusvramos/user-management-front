@@ -19,6 +19,7 @@ function UserNewFlow() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: '', email: '', role: 'viewer' as User['role'] });
   const [createUser, { isLoading: saving }] = useCreateUserMutation();
+  const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
 
   const onChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -42,11 +43,13 @@ function UserNewFlow() {
       return;
     }
     try {
+      setSubmitting(true);
       await createUser({ ...form, active: true }).unwrap();
       navigate('/users');
     } catch (err: unknown) {
       const message = extractErrorMessage(err, 'Failed to create user');
       setFormError(message);
+      setSubmitting(false);
     }
   }
 
@@ -81,7 +84,12 @@ function UserNewFlow() {
           </CardContent>
 
           <FormActions>
-            <ActionButton type="submit" variant="contained" disabled={saving} size="large">
+            <ActionButton
+              type="submit"
+              variant="contained"
+              disabled={saving || submitting}
+              size="large"
+            >
               {saving ? 'Creating...' : 'Create User'}
             </ActionButton>
             <ActionButton
