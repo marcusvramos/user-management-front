@@ -7,6 +7,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { MemoryRouter } from 'react-router-dom';
 import { usersApi } from '@/store/api/users-api';
 import AppThemeProvider from '@/providers/app-theme-provider';
+import ConfirmProvider from '@/providers/confirm-provider';
 
 export function createTestStore() {
   return configureStore({
@@ -32,7 +33,14 @@ export function renderWithProviders(
     return (
       <Provider store={store}>
         <AppThemeProvider>
-          <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
+          <ConfirmProvider>
+            <MemoryRouter
+              initialEntries={initialEntries}
+              future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+            >
+              {children}
+            </MemoryRouter>
+          </ConfirmProvider>
         </AppThemeProvider>
       </Provider>
     );

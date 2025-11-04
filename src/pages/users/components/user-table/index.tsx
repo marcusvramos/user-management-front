@@ -14,6 +14,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import type { User } from '@/types/user';
 import { RoleBadge, StatusBadge } from '@/pages/users/users.styles';
 import { useDeleteUserMutation } from '@/store/api/users-api';
+import { useConfirm } from '@/providers/confirm-provider';
 import {
   MobileUserCard,
   MobileCardContent,
@@ -47,10 +48,19 @@ export function UserTable({ users, sortField, sortOrder, onSort }: UserTableProp
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation();
   const [deletingId, setDeletingId] = useState<number | null>(null);
+  const confirm = useConfirm();
 
   const handleDelete = async (id: number) => {
-    const confirmed = window.confirm('Delete this user?');
+    const confirmed = await confirm({
+      title: 'Delete user?',
+      description: 'This action cannot be undone.',
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
+      intent: 'danger',
+    });
+
     if (!confirmed) return;
+
     try {
       setDeletingId(id);
       await deleteUser(id).unwrap();
