@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.0 (2025-11-04)
+
+- chore(deps): upgrade dependencies and refactor for compatibility ([5b8607a](https://github.com/marcusvramos/user-management-front/commit/5b8607a))
+- docs: update README.md ([3db4057](https://github.com/marcusvramos/user-management-front/commit/3db4057))
+
 ## 1.0.0 (2025-11-04)
 
 ### Features
