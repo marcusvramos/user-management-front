@@ -34,12 +34,7 @@ export function renderWithProviders(
       <Provider store={store}>
         <AppThemeProvider>
           <ConfirmProvider>
-            <MemoryRouter
-              initialEntries={initialEntries}
-              future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
-            >
-              {children}
-            </MemoryRouter>
+            <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
           </ConfirmProvider>
         </AppThemeProvider>
       </Provider>
