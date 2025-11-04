@@ -190,11 +190,22 @@ export const SearchField = styled(TextField)(({ theme }) => ({
       borderColor: theme.palette.primary.main,
       borderWidth: `${theme.custom.borderWidth.thick}px`,
     },
-    '& input': {
-      color: theme.palette.text.primary,
+    '& .MuiInputAdornment-root': {
+      color:
+        theme.palette.mode === 'dark'
+          ? alpha(theme.palette.common.white, 0.8)
+          : theme.palette.text.secondary,
     },
-    '& input::placeholder': {
-      color: theme.palette.text.secondary,
+    '& input': {
+      color:
+        theme.palette.mode === 'dark' ? theme.palette.common.white : theme.palette.text.primary,
+      '::placeholder': {
+        color:
+          theme.palette.mode === 'dark'
+            ? alpha(theme.palette.common.white, 0.8)
+            : theme.palette.text.secondary,
+        opacity: 1,
+      },
     },
   },
   [theme.breakpoints.up('md')]: {
@@ -218,7 +229,7 @@ export const PrimaryButton = styled(Button)(({ theme }) => ({
   borderRadius: theme.spacing(2),
   paddingLeft: theme.spacing(3),
   paddingRight: theme.spacing(3),
-}));
+})) as typeof Button;
 
 export const PageHeader = styled(Box)(({ theme }) => ({
   marginBottom: theme.spacing(4),

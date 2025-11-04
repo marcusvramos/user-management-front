@@ -8,7 +8,7 @@ Frontend para gestão de usuários. Permite listar, criar, editar e remover usu�
 - ➕ Tela de criação (New) e ✏️ edição (Edit)
 - 📨 Campos: nome, email, papel (Select) e status (Switch)
 - 🔁 Integração com API via RTK Query (cache, refetch, invalidações)
-- 🎨 UI com MUI 6 e tema customizado (tokens, css variables)
+- 🎨 UI com MUI e tema customizado (tokens, css variables)
 - 🧱 Error Boundary (nível de rota)
 - 💤 Lazy loading com React.lazy + Suspense
 - ✅ Testes com Vitest + Testing Library + MSW
@@ -16,11 +16,11 @@ Frontend para gestão de usuários. Permite listar, criar, editar e remover usu�
 ## 🧱 Stack & Ferramentas
 
 - Runtime/build: Vite, TypeScript, pnpm
-- Router: React Router v6 (lazy, Suspense, ErrorBoundary)
+- Router: React Router (lazy, Suspense, ErrorBoundary)
 - Estado/API: Redux Toolkit + RTK Query
-- UI: Material UI v6, `@emotion/styled` e `styled()` baseado no THEME (sem estilos inline)
+- UI: Material UI, `@emotion/styled` e `styled()` baseado no THEME (sem estilos inline)
 - Tema: tokens em `src/theme` (layout, bordas, opacidade, sombras, radius, palette)
-- Qualidade: ESLint 9, Prettier 3, Commitlint, Husky + lint-staged, typecheck (tsc)
+- Qualidade: ESLint, Prettier, Commitlint, Husky + lint-staged, typecheck (tsc)
 - Storybook: catálogo e playground de componentes em isolamento, com variações e estados
 - Releases: `release-it` + Conventional Changelog
 - Workflows (GitHub Actions):

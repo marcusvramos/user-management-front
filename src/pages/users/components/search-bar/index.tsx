@@ -1,6 +1,6 @@
 import { InputAdornment } from '@mui/material';
-import { Add as AddIcon, Refresh as RefreshIcon } from '@mui/icons-material';
-import { CleanInlineLink } from '@/components/common/links';
+import { Add as AddIcon, Refresh as RefreshIcon, SearchRounded } from '@mui/icons-material';
+import { Link as RouterLink } from 'react-router-dom';
 import {
   SearchContainer,
   SearchField,
@@ -22,20 +22,30 @@ export function SearchBar({ query, onQueryChange, onRefresh, loading }: SearchBa
         placeholder="Search by name or email"
         value={query}
         onChange={(e) => onQueryChange(e.target.value)}
+        aria-label="Search by name or email"
         slotProps={{
           input: {
-            startAdornment: <InputAdornment position="start">🔎</InputAdornment>,
+            'aria-label': 'Search by name or email',
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchRounded fontSize="small" />
+              </InputAdornment>
+            ),
           },
         }}
       />
       <RefreshButton onClick={onRefresh} disabled={loading} aria-label="refresh">
         <RefreshIcon />
       </RefreshButton>
-      <CleanInlineLink to="/users/new">
-        <PrimaryButton variant="contained" startIcon={<AddIcon />} size="large">
-          New User
-        </PrimaryButton>
-      </CleanInlineLink>
+      <PrimaryButton
+        component={RouterLink}
+        to="/users/new"
+        variant="contained"
+        startIcon={<AddIcon />}
+        size="large"
+      >
+        New User
+      </PrimaryButton>
     </SearchContainer>
   );
 }
