@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0 (2025-11-04)
+
+- feat(users): debounced search + URL state; a11y fixes and dark-mode contrast ([ff6fc1c](https://github.com/marcusvramos/user-management-front/commit/ff6fc1c))
+
 ## 1.1.0 (2025-11-04)
 
 - chore(deps): upgrade dependencies and refactor for compatibility ([5b8607a](https://github.com/marcusvramos/user-management-front/commit/5b8607a))
