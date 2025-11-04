@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { CircularProgress, Typography } from '@mui/material';
 import { useGetUsersQuery } from '@/store/api/users-api';
+import { useSearchParams } from 'react-router-dom';
 import {
   Page,
   PageHeader,
@@ -18,9 +19,39 @@ type SortOrder = 'asc' | 'desc';
 
 function UsersFlow() {
   const { data: users = [], isLoading, error, refetch } = useGetUsersQuery();
-  const [query, setQuery] = useState('');
-  const [sortField, setSortField] = useState<SortField>('name');
-  const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const paramSort = searchParams.get('sort');
+  const paramOrder = searchParams.get('order');
+  const paramQuery = searchParams.get('q') ?? '';
+
+  const isValidSortField = (v: string | null): v is SortField =>
+    v === 'name' || v === 'email' || v === 'role' || v === 'status';
+  const isValidSortOrder = (v: string | null): v is SortOrder => v === 'asc' || v === 'desc';
+
+  const [inputQuery, setInputQuery] = useState<string>(paramQuery);
+  const [query, setQuery] = useState<string>(paramQuery);
+  const [sortField, setSortField] = useState<SortField>(
+    isValidSortField(paramSort) ? paramSort : 'name',
+  );
+  const [sortOrder, setSortOrder] = useState<SortOrder>(
+    isValidSortOrder(paramOrder) ? paramOrder : 'asc',
+  );
+
+  const DEBOUNCE_MS = import.meta.env.MODE === 'test' ? 0 : 250;
+
+  useEffect(() => {
+    const id = setTimeout(() => setQuery(inputQuery), DEBOUNCE_MS);
+    return () => clearTimeout(id);
+  }, [inputQuery, DEBOUNCE_MS]);
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (query) params.set('q', query);
+    if (sortField !== 'name') params.set('sort', sortField);
+    if (sortOrder !== 'asc') params.set('order', sortOrder);
+    setSearchParams(params, { replace: true });
+  }, [query, sortField, sortOrder, setSearchParams]);
 
   const handleSort = (field: SortField) => {
     if (sortField === field) {
@@ -65,7 +96,12 @@ function UsersFlow() {
     <Page>
       <PageHeader>
         <PageTitle variant="h4">Users</PageTitle>
-        <SearchBar query={query} onQueryChange={setQuery} onRefresh={refetch} loading={isLoading} />
+        <SearchBar
+          query={inputQuery}
+          onQueryChange={setInputQuery}
+          onRefresh={refetch}
+          loading={isLoading}
+        />
       </PageHeader>
 
       <TableCard elevation={0}>

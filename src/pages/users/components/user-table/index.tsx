@@ -138,10 +138,10 @@ export function UserTable({ users, sortField, sortOrder, onSort }: UserTableProp
 
   return (
     <TableContainer>
-      <StyledTable>
+      <StyledTable aria-label="Users table">
         <TableHead>
           <TableHeaderRow>
-            <TableHeaderCell>
+            <TableHeaderCell scope="col">
               <TableSortLabel
                 active={sortField === 'name'}
                 direction={sortField === 'name' ? sortOrder : 'asc'}
@@ -150,7 +150,7 @@ export function UserTable({ users, sortField, sortOrder, onSort }: UserTableProp
                 Name
               </TableSortLabel>
             </TableHeaderCell>
-            <TableHeaderCell>
+            <TableHeaderCell scope="col">
               <TableSortLabel
                 active={sortField === 'email'}
                 direction={sortField === 'email' ? sortOrder : 'asc'}
@@ -159,7 +159,7 @@ export function UserTable({ users, sortField, sortOrder, onSort }: UserTableProp
                 Email
               </TableSortLabel>
             </TableHeaderCell>
-            <TableHeaderCell>
+            <TableHeaderCell scope="col">
               <TableSortLabel
                 active={sortField === 'role'}
                 direction={sortField === 'role' ? sortOrder : 'asc'}
@@ -168,7 +168,7 @@ export function UserTable({ users, sortField, sortOrder, onSort }: UserTableProp
                 Role
               </TableSortLabel>
             </TableHeaderCell>
-            <TableHeaderCell>
+            <TableHeaderCell scope="col">
               <TableSortLabel
                 active={sortField === 'status'}
                 direction={sortField === 'status' ? sortOrder : 'asc'}
@@ -177,7 +177,9 @@ export function UserTable({ users, sortField, sortOrder, onSort }: UserTableProp
                 Status
               </TableSortLabel>
             </TableHeaderCell>
-            <TableHeaderCell align="right">Actions</TableHeaderCell>
+            <TableHeaderCell align="right" scope="col">
+              Actions
+            </TableHeaderCell>
           </TableHeaderRow>
         </TableHead>
         <TableBody>
