@@ -39,6 +39,14 @@ jobs:
       - name: Build
         run: pnpm run build
 
+      - name: Build Storybook
+        run: pnpm run build-storybook
+
+      - name: Include Storybook under /storybook
+        run: |
+          mkdir -p dist/storybook
+          cp -R storybook-static/* dist/storybook/
+
       - name: Add SPA fallback (404.html)
         run: cp dist/index.html dist/404.html
 
