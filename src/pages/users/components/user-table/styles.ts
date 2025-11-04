@@ -12,9 +12,11 @@ import {
 } from '@mui/material';
 
 export const MobileUserCard = styled(Card)(({ theme }) => ({
-  border: '1px solid',
+  border: `${theme.custom.borderWidth.thin}px solid`,
   borderColor: theme.palette.divider,
-  transition: 'all 0.2s',
+  transition: theme.transitions.create(['border-color', 'background-color'], {
+    duration: theme.transitions.duration.shorter,
+  }),
   '&:hover': {
     borderColor: theme.palette.primary.main,
     backgroundColor: theme.palette.action.hover,
@@ -29,12 +31,11 @@ export const MobileCardContent = styled(CardContent)(({ theme }) => ({
 }));
 
 export const FieldLabel = styled(Typography)(({ theme }) => ({
-  fontSize: '0.75rem',
   marginBottom: theme.spacing(0.5),
 }));
 
-export const FieldValue = styled(Typography)(() => ({
-  fontWeight: 600,
+export const FieldValue = styled(Typography)(({ theme }) => ({
+  fontWeight: theme.typography.fontWeightMedium,
 }));
 
 export const FieldRow = styled(Stack)(({ theme }) => ({
@@ -55,8 +56,8 @@ export const TableContainer = styled(Box)(() => ({
   overflowX: 'auto',
 }));
 
-export const StyledTable = styled(Table)(() => ({
-  minWidth: 720,
+export const StyledTable = styled(Table)(({ theme }) => ({
+  minWidth: theme.spacing(90),
 }));
 
 export const TableHeaderRow = styled(TableRow)(({ theme }) => ({
@@ -64,8 +65,7 @@ export const TableHeaderRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export const TableHeaderCell = styled(TableCell)(({ theme }) => ({
-  fontWeight: 700,
-  fontSize: '0.875rem',
+  fontWeight: theme.typography.fontWeightBold,
   paddingTop: theme.spacing(2.5),
   paddingBottom: theme.spacing(2.5),
 }));
@@ -82,7 +82,6 @@ export const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export const TableDataCell = styled(TableCell)(({ theme }) => ({
   paddingTop: theme.spacing(3),
   paddingBottom: theme.spacing(3),
-  fontSize: '0.95rem',
 }));
 
 export const TableEmailCell = styled(TableDataCell)(({ theme }) => ({

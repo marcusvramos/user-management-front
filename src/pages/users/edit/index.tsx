@@ -1,9 +1,17 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Alert, Box, CardContent, Stack, Typography } from '@mui/material';
+import { Alert, Box, Stack, Typography } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import type { User } from '@/types/user';
 import { useGetUserQuery, useUpdateUserMutation } from '@/store/api/users-api';
-import { Page, FormCard, FormActions, ActionButton, PageHeader, PageTitle } from '../users.styles';
+import {
+  Page,
+  FormCard,
+  FormActions,
+  ActionButton,
+  PageHeader,
+  PageTitle,
+  FormCardContent,
+} from '../users.styles';
 import { BasicInfoSection, RoleSection, AccountStatusSection } from '../components/form-sections';
 import { LoadingState, ErrorState } from '../components/loading-error-states';
 import { extractErrorMessage } from '@/utils/error-handler';
@@ -31,11 +39,8 @@ function UserEditFlow() {
     setForm((f) => ({ ...f, [field]: e.target.value }));
 
   const onRoleChange = (value: string) => {
-    console.log('🔴 onRoleChange (EDIT) chamado com:', value);
     setForm((f) => {
-      console.log('  - Form anterior:', f);
       const newForm = { ...f, role: value as User['role'] };
-      console.log('  - Form novo:', newForm);
       return newForm;
     });
   };
@@ -77,7 +82,7 @@ function UserEditFlow() {
 
       <Box component="form" onSubmit={onSubmit} noValidate>
         <FormCard elevation={0}>
-          <CardContent sx={{ p: 4 }}>
+          <FormCardContent>
             <Stack spacing={3.5}>
               {formError && <Alert severity="error">{formError}</Alert>}
 
@@ -94,7 +99,7 @@ function UserEditFlow() {
                 onToggle={(checked) => setForm((f) => ({ ...f, active: checked }))}
               />
             </Stack>
-          </CardContent>
+          </FormCardContent>
 
           <FormActions>
             <ActionButton type="submit" variant="contained" size="large" disabled={saving}>

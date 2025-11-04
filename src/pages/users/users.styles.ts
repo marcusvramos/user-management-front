@@ -1,5 +1,5 @@
 import { styled, alpha } from '@mui/material/styles';
-import { Box, Card, TextField, Button, Typography } from '@mui/material';
+import { Alert, Box, Card, CardContent, TextField, Button, Typography } from '@mui/material';
 
 export const Page = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -14,27 +14,27 @@ export const Page = styled(Box)(({ theme }) => ({
   },
 }));
 
-// Base Card Component (reused by FormCard and TableCard)
 const BaseCard = styled(Card)(({ theme }) => ({
-  border: `1px solid ${theme.palette.divider}`,
+  border: `${theme.custom.borderWidth.thin}px solid ${theme.palette.divider}`,
   borderRadius: theme.spacing(3),
   overflow: 'hidden',
   backgroundColor: theme.palette.background.paper,
   boxShadow:
-    theme.palette.mode === 'light'
-      ? '0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06)'
-      : '0 1px 3px rgba(0,0,0,0.3)',
+    theme.palette.mode === 'light' ? theme.custom.shadows.cardLight : theme.custom.shadows.cardDark,
 }));
 
 export const FormCard = BaseCard;
+
+export const FormCardContent = styled(CardContent)(({ theme }) => ({
+  padding: theme.spacing(4),
+}));
 
 export const FormSection = styled(Box)(({ theme }) => ({
   marginBottom: theme.spacing(3.5),
 }));
 
 export const SectionTitle = styled(Typography)(({ theme }) => ({
-  fontSize: '1.1rem',
-  fontWeight: 600,
+  fontWeight: theme.typography.fontWeightMedium,
   marginBottom: theme.spacing(2),
 }));
 
@@ -61,7 +61,7 @@ export const StyledTextField = styled(TextField)(({ theme }) => ({
 export const FormActions = styled(Box)(({ theme }) => ({
   padding: theme.spacing(4, 4, 2.5),
   backgroundColor: theme.palette.background.default,
-  borderTop: `1px solid ${theme.palette.divider}`,
+  borderTop: `${theme.custom.borderWidth.thin}px solid ${theme.palette.divider}`,
   display: 'flex',
   gap: theme.spacing(2),
   flexWrap: 'wrap',
@@ -76,7 +76,6 @@ export const ActionButton = styled(Button)(({ theme }) => ({
   paddingRight: theme.spacing(4),
   borderRadius: theme.spacing(2),
   textTransform: 'none',
-  fontSize: '1rem',
   [theme.breakpoints.down('sm')]: {
     width: '100%',
     paddingLeft: theme.spacing(2),
@@ -89,8 +88,15 @@ export const StatusBox = styled(Box, {
 })<{ active?: boolean }>(({ theme, active }) => ({
   padding: theme.spacing(2.5),
   borderRadius: theme.spacing(2),
-  backgroundColor: active ? '#e8f5e9' : theme.palette.grey[100],
-  border: `1px solid ${active ? theme.palette.success.light : theme.palette.grey[300]}`,
+  backgroundColor: active
+    ? alpha(
+        theme.palette.success.main,
+        theme.palette.mode === 'light'
+          ? theme.custom.opacity.surface.light
+          : theme.custom.opacity.surface.dark,
+      )
+    : theme.palette.action.selected,
+  border: `${theme.custom.borderWidth.thin}px solid ${active ? theme.palette.success.light : theme.palette.grey[300]}`,
 }));
 
 export const TableCard = BaseCard;
@@ -98,7 +104,18 @@ export const TableCard = BaseCard;
 export const TableFooter = styled(Box)(({ theme }) => ({
   padding: theme.spacing(3, 3, 2.5),
   backgroundColor: theme.palette.background.default,
-  borderTop: `1px solid ${theme.palette.divider}`,
+  borderTop: `${theme.custom.borderWidth.thin}px solid ${theme.palette.divider}`,
+}));
+
+export const TableLoading = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  paddingTop: theme.spacing(12),
+  paddingBottom: theme.spacing(12),
+}));
+
+export const ErrorAlert = styled(Alert)(({ theme }) => ({
+  margin: theme.spacing(3),
 }));
 
 export const RoleBadge = styled(Box, {
@@ -115,10 +132,15 @@ export const RoleBadge = styled(Box, {
     display: 'inline-block',
     padding: theme.spacing(0.75, 2.5),
     borderRadius: theme.spacing(2),
-    backgroundColor: alpha(main, palette.mode === 'light' ? 0.16 : 0.28),
+    backgroundColor: alpha(
+      main,
+      palette.mode === 'light'
+        ? theme.custom.opacity.surface.light
+        : theme.custom.opacity.surface.dark,
+    ),
     color: main,
-    fontSize: '0.875rem',
-    fontWeight: 700,
+    fontSize: theme.typography.body2.fontSize,
+    fontWeight: theme.typography.fontWeightBold,
     textTransform: 'capitalize',
   };
 });
@@ -131,10 +153,15 @@ export const StatusBadge = styled(Box, {
     display: 'inline-block',
     padding: theme.spacing(0.75, 2),
     borderRadius: theme.spacing(2),
-    backgroundColor: alpha(main, theme.palette.mode === 'light' ? 0.16 : 0.28),
+    backgroundColor: alpha(
+      main,
+      theme.palette.mode === 'light'
+        ? theme.custom.opacity.surface.light
+        : theme.custom.opacity.surface.dark,
+    ),
     color: main,
-    fontSize: '0.875rem',
-    fontWeight: 700,
+    fontSize: theme.typography.body2.fontSize,
+    fontWeight: theme.typography.fontWeightBold,
   };
 });
 
@@ -153,7 +180,7 @@ export const SearchField = styled(TextField)(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
     '& .MuiOutlinedInput-notchedOutline': {
       borderColor: theme.palette.divider,
-      borderWidth: '1.5px',
+      borderWidth: `${theme.custom.borderWidth.semi}px`,
     },
     '&:hover .MuiOutlinedInput-notchedOutline': {
       borderColor:
@@ -161,24 +188,23 @@ export const SearchField = styled(TextField)(({ theme }) => ({
     },
     '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
       borderColor: theme.palette.primary.main,
-      borderWidth: '2px',
+      borderWidth: `${theme.custom.borderWidth.thick}px`,
     },
     '& input': {
       color: theme.palette.text.primary,
     },
     '& input::placeholder': {
       color: theme.palette.text.secondary,
-      opacity: 0.7,
     },
   },
   [theme.breakpoints.up('md')]: {
     flex: '1 1 auto',
-    maxWidth: '500px',
+    maxWidth: theme.spacing(62.5),
   },
 }));
 
 export const RefreshButton = styled(Button)(({ theme }) => ({
-  border: `1.5px solid ${theme.palette.divider}`,
+  border: `${theme.custom.borderWidth.semi}px solid ${theme.palette.divider}`,
   backgroundColor: theme.palette.background.paper,
   minWidth: 'auto',
   padding: theme.spacing(1, 2),
@@ -199,18 +225,19 @@ export const PageHeader = styled(Box)(({ theme }) => ({
 }));
 
 export const PageTitle = styled(Typography)(({ theme }) => ({
-  fontWeight: 600,
+  fontWeight: theme.typography.fontWeightBold,
   marginBottom: theme.spacing(3),
-  fontSize: '2rem',
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '1.5rem',
-  },
 }));
 
 export const InfoBox = styled(Box)(({ theme }) => ({
   padding: theme.spacing(3),
   borderRadius: theme.spacing(2),
-  backgroundColor: alpha(theme.palette.info.main, 0.08),
-  border: `1px solid ${alpha(theme.palette.info.main, 0.3)}`,
+  backgroundColor: alpha(
+    theme.palette.info.main,
+    theme.palette.mode === 'light'
+      ? theme.custom.opacity.subtle.light
+      : theme.custom.opacity.subtle.dark,
+  ),
+  border: `${theme.custom.borderWidth.thin}px solid ${alpha(theme.palette.info.main, theme.custom.opacity.border)}`,
   color: theme.palette.text.primary,
 }));

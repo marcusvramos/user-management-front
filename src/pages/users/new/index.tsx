@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert, Box, CardContent, Stack, Typography } from '@mui/material';
+import { Alert, Box, Stack, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import type { User } from '@/types/user';
 import { useCreateUserMutation } from '@/store/api/users-api';
@@ -11,6 +11,7 @@ import {
   InfoBox,
   PageHeader,
   PageTitle,
+  FormCardContent,
 } from '../users.styles';
 import { BasicInfoSection, RoleSection } from '../components/form-sections';
 import { extractErrorMessage } from '@/utils/error-handler';
@@ -26,11 +27,8 @@ function UserNewFlow() {
     setForm((f) => ({ ...f, [field]: e.target.value }));
 
   const onRoleChange = (value: string) => {
-    console.log('🔴 onRoleChange (NEW) chamado com:', value);
     setForm((f) => {
-      console.log('  - Form anterior:', f);
       const newForm = { ...f, role: value as User['role'] };
-      console.log('  - Form novo:', newForm);
       return newForm;
     });
   };
@@ -66,7 +64,7 @@ function UserNewFlow() {
 
       <Box component="form" onSubmit={onSubmit} noValidate>
         <FormCard elevation={0}>
-          <CardContent sx={{ p: 4 }}>
+          <FormCardContent>
             <Stack spacing={3.5}>
               {formError && <Alert severity="error">{formError}</Alert>}
 
@@ -81,7 +79,7 @@ function UserNewFlow() {
                 </Typography>
               </InfoBox>
             </Stack>
-          </CardContent>
+          </FormCardContent>
 
           <FormActions>
             <ActionButton

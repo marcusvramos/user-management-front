@@ -1,9 +1,10 @@
-import { Box, CircularProgress } from '@mui/material';
+import { CircularProgress } from '@mui/material';
+import { CenteredSection } from '@/components/layout/centered.styles';
 
 export function LoadingFallback() {
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
+    <CenteredSection>
       <CircularProgress />
-    </Box>
+    </CenteredSection>
   );
 }

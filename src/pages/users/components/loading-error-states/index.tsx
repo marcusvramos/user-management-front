@@ -1,10 +1,12 @@
-import { Alert, Box, CircularProgress } from '@mui/material';
+import { Alert } from '@mui/material';
+import { LargeCircularProgress } from './styles';
+import { CenteredSection } from '@/components/layout/centered.styles';
 
 export function LoadingState() {
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
-      <CircularProgress size={48} />
-    </Box>
+    <CenteredSection>
+      <LargeCircularProgress />
+    </CenteredSection>
   );
 }
 

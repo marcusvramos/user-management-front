@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { MemoryRouter } from 'react-router-dom';
 import { usersApi } from '@/store/api/users-api';
+import AppThemeProvider from '@/providers/app-theme-provider';
 
 export function createTestStore() {
   return configureStore({
@@ -30,15 +31,9 @@ export function renderWithProviders(
   function Wrapper({ children }: { children: React.ReactNode }) {
     return (
       <Provider store={store}>
-        <MemoryRouter
-          initialEntries={initialEntries}
-          future={{
-            v7_startTransition: true,
-            v7_relativeSplatPath: true,
-          }}
-        >
-          {children}
-        </MemoryRouter>
+        <AppThemeProvider>
+          <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
+        </AppThemeProvider>
       </Provider>
     );
   }

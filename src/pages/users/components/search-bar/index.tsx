@@ -1,6 +1,6 @@
 import { InputAdornment } from '@mui/material';
 import { Add as AddIcon, Refresh as RefreshIcon } from '@mui/icons-material';
-import { Link as RouterLink } from 'react-router-dom';
+import { CleanInlineLink } from '@/components/common/links';
 import {
   SearchContainer,
   SearchField,
@@ -31,11 +31,11 @@ export function SearchBar({ query, onQueryChange, onRefresh, loading }: SearchBa
       <RefreshButton onClick={onRefresh} disabled={loading} aria-label="refresh">
         <RefreshIcon />
       </RefreshButton>
-      <RouterLink to="/users/new" style={{ textDecoration: 'none' }}>
+      <CleanInlineLink to="/users/new">
         <PrimaryButton variant="contained" startIcon={<AddIcon />} size="large">
           New User
         </PrimaryButton>
-      </RouterLink>
+      </CleanInlineLink>
     </SearchContainer>
   );
 }

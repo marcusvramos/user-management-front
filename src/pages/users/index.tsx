@@ -1,7 +1,15 @@
 import { useMemo, useState } from 'react';
-import { Alert, Box, CircularProgress, Typography } from '@mui/material';
+import { CircularProgress, Typography } from '@mui/material';
 import { useGetUsersQuery } from '@/store/api/users-api';
-import { Page, PageHeader, PageTitle, TableCard, TableFooter } from '@/pages/users/users.styles';
+import {
+  Page,
+  PageHeader,
+  PageTitle,
+  TableCard,
+  TableFooter,
+  TableLoading,
+  ErrorAlert,
+} from '@/pages/users/users.styles';
 import { SearchBar } from '@/pages/users/components/search-bar';
 import { UserTable } from '@/pages/users/components/user-table';
 
@@ -27,14 +35,12 @@ function UsersFlow() {
     const q = query.trim().toLowerCase();
     let result = users;
 
-    // Filter
     if (q) {
       result = users.filter(
         (u) => u.name.toLowerCase().includes(q) || u.email.toLowerCase().includes(q),
       );
     }
 
-    // Sort
     result = [...result].sort((a, b) => {
       let aValue: string | boolean;
       let bValue: string | boolean;
@@ -64,13 +70,13 @@ function UsersFlow() {
 
       <TableCard elevation={0}>
         {isLoading ? (
-          <Box display="flex" justifyContent="center" py={12}>
+          <TableLoading>
             <CircularProgress />
-          </Box>
+          </TableLoading>
         ) : error ? (
-          <Alert severity="error" sx={{ m: 3 }}>
+          <ErrorAlert severity="error">
             {'status' in error ? `Error: ${error.status}` : 'Failed to load users'}
-          </Alert>
+          </ErrorAlert>
         ) : (
           <>
             <UserTable

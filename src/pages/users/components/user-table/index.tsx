@@ -67,14 +67,14 @@ export function UserTable({ users, sortField, sortOrder, onSort }: UserTableProp
             <MobileCardContent>
               <Stack spacing={2}>
                 <Box>
-                  <FieldLabel variant="body2" color="text.secondary">
+                  <FieldLabel variant="caption" color="text.secondary">
                     Name
                   </FieldLabel>
                   <FieldValue variant="body1">{user.name}</FieldValue>
                 </Box>
 
                 <Box>
-                  <FieldLabel variant="body2" color="text.secondary">
+                  <FieldLabel variant="caption" color="text.secondary">
                     Email
                   </FieldLabel>
                   <Typography variant="body2">{user.email}</Typography>
@@ -82,14 +82,14 @@ export function UserTable({ users, sortField, sortOrder, onSort }: UserTableProp
 
                 <FieldRow>
                   <Box>
-                    <FieldLabel variant="body2" color="text.secondary">
+                    <FieldLabel variant="caption" color="text.secondary">
                       Role
                     </FieldLabel>
                     <RoleBadge role={user.role}>{user.role}</RoleBadge>
                   </Box>
 
                   <Box>
-                    <FieldLabel variant="body2" color="text.secondary">
+                    <FieldLabel variant="caption" color="text.secondary">
                       Status
                     </FieldLabel>
                     <StatusBadge active={!!user.active}>

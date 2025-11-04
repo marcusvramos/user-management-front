@@ -1,11 +1,10 @@
 import { styled } from '@mui/material/styles';
 import { AppBar, Avatar, Box, IconButton, Toolbar } from '@mui/material';
-import { DRAWER_WIDTH } from '@/components/sidebar/sidebar.styles';
 
 export const Shell = styled(Box)(({ theme }) => ({
   display: 'flex',
   width: '100%',
-  minHeight: '100dvh',
+  minHeight: theme.custom.layout.viewportDynamic,
   backgroundColor: theme.palette.background.default,
 }));
 
@@ -32,8 +31,8 @@ export const StyledAppBar = styled(AppBar)(({ theme }) => ({
   width: '100%',
   zIndex: theme.zIndex.drawer - 1,
   [theme.breakpoints.up('md')]: {
-    left: DRAWER_WIDTH,
-    width: `calc(100% - ${DRAWER_WIDTH}px)`,
+    left: theme.custom.layout.drawerWidth,
+    width: `calc(100% - ${theme.custom.layout.drawerWidth}px)`,
   },
 }));
 
@@ -57,14 +56,14 @@ export const MobileMenuButton = styled(IconButton)(({ theme }) => ({
 
 export const UserAvatar = styled(Avatar)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
-  width: 32,
-  height: 32,
+  width: theme.spacing(theme.custom.sizes.avatar / 8),
+  height: theme.spacing(theme.custom.sizes.avatar / 8),
 }));
 
 export const Main = styled('main')(({ theme }) => ({
   flexGrow: 1,
   padding: theme.spacing(3),
-  minHeight: '100vh',
+  minHeight: theme.custom.layout.viewport,
   [theme.breakpoints.up('md')]: {
     padding: theme.spacing(4),
   },

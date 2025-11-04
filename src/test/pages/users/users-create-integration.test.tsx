@@ -4,7 +4,6 @@ import userEvent from '@testing-library/user-event';
 import { render } from '@/test/utils/test-utils';
 import UserNewFlow from '@/pages/users/new';
 
-// Mock useNavigate
 const mockNavigate = vi.fn();
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom');
@@ -32,9 +31,6 @@ describe('UserNewFlow - Create User Integration', () => {
 
     await user.type(nameInput, 'David Miller');
     await user.type(emailInput, 'david@example.com');
-
-    // Note: Role is a Select dropdown with default value 'viewer'
-    // For simplicity, we'll use the default value in this test
 
     // Submit form
     const submitButton = screen.getByRole('button', { name: /create user/i });
@@ -138,11 +134,9 @@ describe('UserNewFlow - Create User Integration', () => {
     });
 
     // Verify Redux store was updated via RTK Query cache invalidation
-    // The usersApi cache should have been invalidated, causing a refetch
     const state = store.getState();
 
     // Check that the cache invalidation was triggered
-    // (In a real scenario, this would cause the users list to refetch)
     expect(state.usersApi.queries).toBeDefined();
   });
 });

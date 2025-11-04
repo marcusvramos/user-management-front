@@ -11,6 +11,45 @@ const brandBgDefault = '#F8F9FA';
 export const createAppTheme = (mode: PaletteMode) =>
   createTheme({
     cssVariables: true,
+    custom: {
+      layout: {
+        drawerWidth: 248,
+        drawerMiniWidth: 72,
+        drawerTempWidth: 320,
+        maxContentWidth: 500,
+        sectionMinVh: 60,
+        viewport: '100vh',
+        viewportDynamic: '100dvh',
+        drawerTempWidthMobileVw: 85,
+      },
+      borderWidth: {
+        thin: 1,
+        semi: 1.5,
+        thick: 2,
+      },
+      radii: {
+        card: 12,
+      },
+      sizes: {
+        avatar: 32,
+        logoHeight: 28,
+      },
+      shadows: {
+        cardLight: '0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06)',
+        cardDark: '0 1px 3px rgba(0,0,0,0.3)',
+      },
+      opacity: {
+        surface: {
+          light: 0.16,
+          dark: 0.28,
+        },
+        subtle: {
+          light: 0.08,
+          dark: 0.28,
+        },
+        border: 0.3,
+      },
+    },
     palette: {
       mode,
       primary: {
@@ -73,7 +112,7 @@ export const createAppTheme = (mode: PaletteMode) =>
         styleOverrides: {
           root: ({ theme }) => ({
             boxShadow: 'none',
-            borderBottom: `1px solid ${theme.palette.divider}`,
+            borderBottom: `${theme.custom.borderWidth.thin}px solid ${theme.palette.divider}`,
           }),
         },
       },
@@ -87,18 +126,18 @@ export const createAppTheme = (mode: PaletteMode) =>
       MuiCard: {
         styleOverrides: {
           root: ({ theme }) => ({
-            borderRadius: 12,
+            borderRadius: theme.custom.radii.card,
             boxShadow:
               theme.palette.mode === 'light'
-                ? '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04)'
-                : '0 1px 3px rgba(0,0,0,0.3)',
+                ? theme.custom.shadows.cardLight
+                : theme.custom.shadows.cardDark,
           }),
         },
       },
       MuiTableCell: {
         styleOverrides: {
           root: ({ theme }) => ({
-            borderBottom: `1px solid ${theme.palette.divider}`,
+            borderBottom: `${theme.custom.borderWidth.thin}px solid ${theme.palette.divider}`,
           }),
         },
       },

@@ -13,7 +13,7 @@ describe('UsersFlow - Sorting', () => {
     });
 
     // Get all table rows (excluding header)
-    const rows = screen.getAllByRole('row').slice(1); // Skip header row
+    const rows = screen.getAllByRole('row').slice(1);
 
     // Check order: Alice, Bob, Charlie (alphabetical)
     expect(within(rows[0]).getByText('Alice Johnson')).toBeInTheDocument();
@@ -29,7 +29,7 @@ describe('UsersFlow - Sorting', () => {
       expect(screen.getByText('Alice Johnson')).toBeInTheDocument();
     });
 
-    // Click Name header once (already asc by default, so this will toggle to desc)
+    // Click Name header once (toggle to desc)
     const nameHeader = screen.getByRole('button', { name: /name/i });
     await user.click(nameHeader);
 
@@ -98,7 +98,7 @@ describe('UsersFlow - Sorting', () => {
 
     await waitFor(() => {
       const rows = screen.getAllByRole('row').slice(1);
-      // Inactive first (false < true), then active
+      // Inactive first
       expect(within(rows[0]).getByText('Inactive')).toBeInTheDocument();
       expect(within(rows[1]).getByText('Active')).toBeInTheDocument();
       expect(within(rows[2]).getByText('Active')).toBeInTheDocument();
@@ -123,7 +123,7 @@ describe('UsersFlow - Sorting', () => {
 
     await waitFor(() => {
       const rows = screen.getAllByRole('row').slice(1);
-      // Should maintain descending sort: Charlie first, then Bob
+      // Should maintain descending sort
       expect(within(rows[0]).getByText('Charlie Brown')).toBeInTheDocument();
       expect(within(rows[1]).getByText('Bob Smith')).toBeInTheDocument();
     });
