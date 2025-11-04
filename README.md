@@ -42,11 +42,12 @@ Frontend para gestão de usuários. Permite listar, criar, editar e remover usu�
 
 ## 🌐 Demo
 
-GitHub Pages: https://marcusvramos.github.io/user-management-front
+- App (GitHub Pages): https://marcusvramos.github.io/user-management-front
+- Storybook: https://marcusvramos.github.io/user-management-front/storybook/
 
 ## 🔗 API
 
-Esta aplicação consome a API que nós também desenvolvemos.
+Esta aplicação consome uma REST API simples que eu também desenvolvi.
 
 - Repositório (API): https://github.com/marcusvramos/user-management-api
 
