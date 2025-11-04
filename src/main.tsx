@@ -12,7 +12,7 @@ createRoot(document.getElementById('root')!).render(
     <ReduxProvider store={store}>
       <AppThemeProvider>
         <ConfirmProvider>
-          <RouterProvider router={router} future={{ v7_startTransition: true }} />
+          <RouterProvider router={router} />
         </ConfirmProvider>
       </AppThemeProvider>
     </ReduxProvider>

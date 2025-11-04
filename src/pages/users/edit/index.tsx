@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Alert, Box, Stack, Typography } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import type { User } from '@/types/user';
@@ -28,21 +28,17 @@ function UserEditFlow() {
     skip: Number.isNaN(numericId),
   });
   const [updateUser, { isLoading: saving }] = useUpdateUserMutation();
-  const [form, setForm] = useState<Partial<User>>({});
+
+  const [edits, setEdits] = useState<Partial<User>>({});
   const [formError, setFormError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (data) setForm(data);
-  }, [data]);
+  const form = useMemo(() => ({ ...data, ...edits }), [data, edits]);
 
   const onChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) =>
-    setForm((f) => ({ ...f, [field]: e.target.value }));
+    setEdits((prev) => ({ ...prev, [field]: e.target.value }));
 
   const onRoleChange = (value: string) => {
-    setForm((f) => {
-      const newForm = { ...f, role: value as User['role'] };
-      return newForm;
-    });
+    setEdits((prev) => ({ ...prev, role: value as User['role'] }));
   };
 
   async function onSubmit(e: React.FormEvent) {
@@ -96,7 +92,7 @@ function UserEditFlow() {
 
               <AccountStatusSection
                 active={!!form.active}
-                onToggle={(checked) => setForm((f) => ({ ...f, active: checked }))}
+                onToggle={(checked) => setEdits((prev) => ({ ...prev, active: checked }))}
               />
             </Stack>
           </FormCardContent>
