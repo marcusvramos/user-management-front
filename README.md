@@ -27,6 +27,28 @@ Frontend para gestão de usuários. Permite listar, criar, editar e remover usu�
   - CI: lint, format:check, tests, build e build-storybook para qualquer branch (push/PR)
   - Deploy: build + Pages, publica no GitHub Pages em push na branch `master` (SPA fallback `404.html`)
 
+## 💻 Instalação e execução
+
+Para rodar o projeto localmente, siga os passos:
+
+1. **Instale as dependências:**
+
+   ```bash
+   pnpm install
+   # ou
+   npm install
+   ```
+
+2. **Inicie o servidor de desenvolvimento:**
+
+   ```bash
+   pnpm dev
+   # ou
+   npm run dev
+   ```
+
+3. Acesse http://localhost:5173 no navegador
+
 ## 🔧 Scripts úteis
 
 - `pnpm dev` — inicia o servidor de desenvolvimento
